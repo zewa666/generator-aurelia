@@ -8,9 +8,23 @@ For more info please visit the official site: http://www.aurelia.io/
 ## Running The App
 
 1. Verify that Yeoman is installed
+
+  ```shell
+  npm install -g yo
+  ```
 2. Install this generator
+
+  ```shell
+  npm install -g generator-aurelia
+  ```
 3. Create a new project folder and move into it in the terminal
+
+  ```shell
+  mkdir YOUR_PROJECT_NAME
+  cd YOUR_PROJECT_NAME
+  ```
 4. Execute the following command
+
   ```shell
   yo aurelia
   ```
