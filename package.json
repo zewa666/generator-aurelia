@@ -1,0 +1,13 @@
+{
+  "name": "generator-aurelia",
+  "version": "0.1.0",
+  "description": "Yeoman generator for the JavaScript Framework Aurelia",
+  "keywords": ["yeoman-generator", "aurelia", "es6", "durandal"],
+  "dependencies": {
+    "yeoman-generator": "^0.17.3"
+  },
+  "author": {
+    "name": "Vildan Softic",
+    "email": "zewa666@gmail.com"
+  }
+}
