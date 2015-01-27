@@ -58,4 +58,14 @@ For more info please visit the official site: http://www.aurelia.io/
 10. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
 
+## Creating a new page
+In order to create a new Aurelia Page just enter the following command inside your project root:
+
+  ```shell
+  yo aurelia:page YOURPAGENAME
+  ```
+
+This will create a View and ViewModel with the given name inside the ```./src``` folder
+
+## Credits
 Thanks to Addy Osmani for his awesome [generator-boilerplate](https://github.com/addyosmani/generator-boilerplate) repo.
