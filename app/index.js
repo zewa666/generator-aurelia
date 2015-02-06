@@ -3,6 +3,22 @@ var path = require('path');
 var generators = require('yeoman-generator');
 
 var Generator = module.exports = generators.Base.extend({
+  init: function() {
+    var done = this.async();
+    var that = this;
+    var spawn = require('child_process').spawn;
+    var s1 = spawn( 'git', [ 'submodule -q foreach git pull -q origin master'], {cwd: this.sourceRoot() } );
+    s1.on('close', function() {
+      var s2 = spawn( 'git', [ 'reset', '--hard'], {cwd: that.sourceRoot() } );
+      s2.on('close', function() {
+        var s3 = spawn( 'git', [ 'pull'], {cwd: that.sourceRoot() } );
+        s3.on('close', function() {
+          done();
+        });
+      });
+    });
+  },
+
   installAurelia: function() {
     var prompts = [];
     var files   = this.expandFiles('**/*', { cwd: this.sourceRoot(), dot: true });
