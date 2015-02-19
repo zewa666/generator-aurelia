@@ -65,6 +65,8 @@ In order to create a new Aurelia Page just enter the following command inside yo
   yo aurelia:page YOURPAGENAME
   ```
 
+> If you get an error like `Error: spawn git ENOENT` when executing the yo command, you should check whether GIT is installed and accessible from the command line
+
 This will create a View and ViewModel with the given name inside the ```./src``` folder
 
 ## Credits
