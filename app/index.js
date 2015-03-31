@@ -45,6 +45,10 @@ var Generator = module.exports = generators.Base.extend({
 
   executeNPMInstall: function () {
     this.npmInstall();
+  },
+
+  runJSPM: function() {
+    this.spawnCommand('jspm', ['install']);
   }
 });
 

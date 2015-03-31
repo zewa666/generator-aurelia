@@ -7,6 +7,8 @@ For more info please visit the official site: http://www.aurelia.io/
 
 ## Running The App
 
+> The recent update will take care of running `npm install` and `jspm install` after downloading the boilerplate app, so this shortens the process to get up and running.
+
 1. Verify that Yeoman is installed
 
   ```shell
@@ -41,19 +43,12 @@ For more info please visit the official site: http://www.aurelia.io/
   yo aurelia
   ```
 
-  > **Note:** jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts.
-7. Install the client-side dependencies with jspm:
-
-  ```shell
-  jspm install
-  ```
-  >**Note:** Windows users, if you experience an error of "unknown command unzip" you can solve this problem by doing `npm install -g unzip` and then re-running `jspm install`.
-8. To run the app, execute the following command:
+7. To run the app, execute the following command:
 
   ```shell
   gulp watch
   ```
-9. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
+8. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
 
 ## Creating a new page
