@@ -1,3 +1,0 @@
-[submodule "app/templates"]
-	path = app/templates
-	url = https://github.com/aurelia/skeleton-navigation.git
