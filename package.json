@@ -1,6 +1,6 @@
 {
   "name": "generator-aurelia",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Yeoman generator for the JavaScript Framework Aurelia",
   "keywords": [
     "yeoman-generator",
@@ -16,6 +16,7 @@
     "type": "git",
     "url": "git://github.com/zewa666/generator-aurelia.git"
   },
+  "license": "MIT",
   "author": {
     "name": "Vildan Softic",
     "email": "zewa666@gmail.com"
