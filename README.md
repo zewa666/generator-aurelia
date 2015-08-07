@@ -50,6 +50,8 @@ For more info please visit the official site: http://www.aurelia.io/
   ```
 8. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
+## Command line options
+yo aurelia --skip-install will skip the npm and jspm install.
 
 ## Creating a new page
 In order to create a new Aurelia Page just enter the following command inside your project root:
