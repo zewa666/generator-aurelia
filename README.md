@@ -4,6 +4,7 @@ This is a Yeoman Generator for the [Skeleton App](https://github.com/aurelia/ske
 
 For more info please visit the official site: http://www.aurelia.io/
 
+> The recent version of the aurelia libraries require jspm@beta. So make sure to install `npm install -g jspm@beta` before executing the next steps.
 
 ## Running The App
 
