@@ -26,10 +26,10 @@ For more info please visit the official site: http://www.aurelia.io/
   ```shell
   npm install -g gulp
   ```
-4. Ensure that [jspm](http://jspm.io/) is installed. If you need to install it, use the following command:
+4. Ensure that [jspm](http://jspm.io/) (beta release) is installed. If you need to install it, use the following command:
 
   ```shell
-  npm install -g jspm
+  npm install -g jspm@beta
   ```
 
 5. Create a new project folder and move into it in the terminal
