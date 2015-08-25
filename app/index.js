@@ -23,7 +23,7 @@ var Generator = module.exports = yeoman.generators.Base.extend({
       protocol: "https",
       host: "api.github.com",
       pathPrefix: "",
-      timeout: 5000,
+      timeout: 30000,
       headers: {
         "user-agent": "Aurelia-Github-Loader"
       }
