@@ -51,6 +51,13 @@ For more info please visit the official site: http://www.aurelia.io/
   ```
 8. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
+## Update the skeleton jspm dependencies
+If you're inside your skeleton folder you can run the following command to update your installation and get the latest versions of the dependencies used:
+
+  ```shell
+  yo aurelia:update
+  ```
+
 ## Command line options
 yo aurelia --skip-install will skip the npm and jspm install.
 
