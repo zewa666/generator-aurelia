@@ -23,7 +23,7 @@ var Generator = module.exports = yeoman.generators.Base.extend({
       protocol: "https",
       host: "api.github.com",
       pathPrefix: "",
-      timeout: 5000,
+      timeout: 30000,
       headers: {
         "user-agent": "Aurelia-Github-Loader"
       }
@@ -31,7 +31,7 @@ var Generator = module.exports = yeoman.generators.Base.extend({
 
     github.repos.getTags({ user: 'aurelia', repo: 'skeleton-navigation', page: 1, per_page: 1 }, function(err, result) {
       if(err !== undefined && err !== null) {
-        this.env.error('Failed to get latest release info');
+        this.env.error('Failed to get latest release info. Reason: ' + err.message);
         return;
       }
 
