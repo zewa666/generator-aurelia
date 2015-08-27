@@ -4,8 +4,6 @@ This is a Yeoman Generator for the [Skeleton App](https://github.com/aurelia/ske
 
 For more info please visit the official site: http://www.aurelia.io/
 
-> The recent version of the aurelia libraries require jspm@beta. So make sure to install `npm install -g jspm@beta` before executing the next steps.
-
 ## Running The App
 
 > The recent update will take care of running `npm install` and `jspm install` after downloading the boilerplate app, so this shortens the process to get up and running.
@@ -26,10 +24,10 @@ For more info please visit the official site: http://www.aurelia.io/
   ```shell
   npm install -g gulp
   ```
-4. Ensure that [jspm](http://jspm.io/) (beta release) is installed. If you need to install it, use the following command:
+4. Ensure that [jspm](http://jspm.io/) is installed. If you need to install it, use the following command:
 
   ```shell
-  npm install -g jspm@beta
+  npm install -g jspm
   ```
 
 5. Create a new project folder and move into it in the terminal
