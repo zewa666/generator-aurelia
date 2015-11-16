@@ -60,7 +60,12 @@ If you're inside your skeleton folder you can run the following command to updat
   ```
 
 ## Command line options
+
+### --skip-install
 yo aurelia --skip-install will skip the npm and jspm install.
+
+### --proxy
+yo aurelia --proxy=http://my.proxy:8080 will install the skeleton app resepecting the given proxy settings
 
 ## Creating a new page
 In order to create a new Aurelia Page just enter the following command inside your project root:

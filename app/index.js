@@ -16,7 +16,8 @@ var Generator = module.exports = yeoman.generators.Base.extend({
 
     this.log(this.destinationRoot());
 
-    var github = new GitHubApi({
+    
+    var githubOptions = {
       // required
       version: "3.0.0",
       debug: false,
@@ -27,7 +28,14 @@ var Generator = module.exports = yeoman.generators.Base.extend({
       headers: {
         "user-agent": "Aurelia-Github-Loader"
       }
-    });
+    };
+    
+    if(this.options['proxy']) {
+      console.log(this.options['proxy']);
+      githubOptions["proxy"] = this.options['proxy'];
+    }
+
+    var github = new GitHubApi(githubOptions);
 
     github.repos.getTags({ user: 'aurelia', repo: 'skeleton-navigation', page: 1, per_page: 1 }, function(err, result) {
       if(err !== undefined && err !== null) {
