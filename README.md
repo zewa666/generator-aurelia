@@ -39,16 +39,17 @@ This generator will use [JSPM](http://jspm.io), Aurelias package manager of choi
   mkdir YOUR_PROJECT_NAME
   cd YOUR_PROJECT_NAME
   ```
-6. Execute the following command
+
+6. Use Github API Token if the generator prompts a rate limit error. Execute the following command:
+
+  ```shell
+  export GITHUB_TOKEN=YOUR_ACCESS_TOKEN
+  ```
+
+7. Execute the following command
 
   ```shell
   yo aurelia
-  ```
-
-7. If the generator prompts a rate limit error, use the Github API token and execute the following command:
-
-  ```shell
-  export GITHUB_TOKEN=YOURACCESSTOKEN
   ```
 
 8. To run the app, execute the following command:
