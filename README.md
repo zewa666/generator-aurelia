@@ -45,12 +45,18 @@ This generator will use [JSPM](http://jspm.io), Aurelias package manager of choi
   yo aurelia
   ```
 
-7. To run the app, execute the following command:
+7. If the generator prompts a rate limit error, use the Github API token and execute the following command:
+
+  ```shell
+  export GITHUB_TOKEN=YOURACCESSTOKEN
+  ```
+
+8. To run the app, execute the following command:
 
   ```shell
   gulp watch
   ```
-8. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
+9. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
 
 ## Update the skeleton jspm dependencies
 If you're inside your skeleton folder you can run the following command to update your installation and get the latest versions of the dependencies used:
