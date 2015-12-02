@@ -45,6 +45,8 @@ This generator will use [JSPM](http://jspm.io), Aurelias package manager of choi
   ```shell
   export GITHUB_TOKEN=YOUR_ACCESS_TOKEN
   ```
+  
+  > Windows users should set a user environment variable called GITHUB_TOKEN with the value being your actual token. 
 
 7. Execute the following command
 
