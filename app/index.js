@@ -2,10 +2,31 @@ var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var GitHubApi = require('github');
 
+var projectTypeChoice;
+
 var Generator = module.exports = yeoman.generators.Base.extend({
+  
   constructor: function(){
     yeoman.generators.Base.apply(this, arguments);
     this.option('skip-install');
+  },
+  
+  prompting: function () {
+    var done = this.async();
+    this.prompt({
+      type    : 'list',
+      name    : 'project',
+      choices : [
+        { name: "EcmaScript 2016", value: "skeleton-es2016"},
+        { name: "ASP.NET 5 - EcmaScript 2016", value: "skeleton-es2016-asp.net5/src/skeleton-navigation-es2016-vs"},
+        { name: "TypeScript", value: "skeleton-typescript"},
+        { name: "ASP.NET 5 - TypeScript", value: "skeleton-typescript-asp.net5/skeleton-navigation-typescript-vs"},
+      ],
+      message : 'Which Aurelia preset would you like to install?',
+    }, function (answers) {
+      projectTypeChoice = answers.project;
+      done();
+    }.bind(this));
   },
 
   init: function () {
@@ -71,17 +92,16 @@ var Generator = module.exports = yeoman.generators.Base.extend({
   executeNPMInstall: function () {
     if (!this.options['skip-install']){
       this.log('Executing NPM install');
-      this.npmInstall();
+      this.npmInstall(null, {cwd: projectTypeChoice});
     } else {
       this.log('NPM install deliberately skipped');
     }
   },
 
   runJSPM: function() {
-
     if (!this.options['skip-install']){
       this.log('Executing JSPM install');
-      this.spawnCommand('jspm', ['install']);
+      this.spawnCommand('jspm', ['install'], {cwd: projectTypeChoice});
     } else{
       this.log('JSPM install deliberately skipped');
     }
