@@ -1,16 +1,17 @@
 var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var GitHubApi = require('github');
+var exec = require('child_process').exec;
 
 var projectTypeChoice;
 
 var Generator = module.exports = yeoman.generators.Base.extend({
-  
+
   constructor: function(){
     yeoman.generators.Base.apply(this, arguments);
     this.option('skip-install');
   },
-  
+
   prompting: function () {
     var done = this.async();
     this.prompt({
@@ -78,12 +79,27 @@ var Generator = module.exports = yeoman.generators.Base.extend({
       console.log('Downloading latest available release: ' + result[0].name);
 
       // Kick off the repo download
-      ghdownload("aurelia/skeleton-navigation#" + result[0].name, this.destinationRoot(), function(err) {
+      ghdownload("aurelia/skeleton-navigation#" + result[0].name, this.destinationRoot() + "/github_tmp", function(err) {
         if (err !== undefined && err !== null) {
           this.env.error(err);
         } else {
           this.log('Download complete');
-          done();
+
+          mv = exec('mv -v ' + this.destinationRoot() + '/github_tmp/' + projectTypeChoice +'/* '+ this.destinationRoot()+'/', function(error, stdout, stderr) {
+            if (error !== null) {
+              this.env.error(error);
+            }
+
+            this.log('Specified skeleton folder moved: ' + projectTypeChoice);
+            rm = exec('rm -rf ' + this.destinationRoot() + '/github_tmp', function(error, stdout, stderr) {
+              if (error !== null) {
+                this.env.error(error);
+              }
+              this.log('Temporary github folder removed');
+
+              done();
+            }.bind(this));
+          }.bind(this));
         }
       }.bind(this));
     }.bind(this));
@@ -92,7 +108,7 @@ var Generator = module.exports = yeoman.generators.Base.extend({
   executeNPMInstall: function () {
     if (!this.options['skip-install']){
       this.log('Executing NPM install');
-      this.npmInstall(null, {cwd: projectTypeChoice});
+      this.npmInstall(null);
     } else {
       this.log('NPM install deliberately skipped');
     }
@@ -101,7 +117,7 @@ var Generator = module.exports = yeoman.generators.Base.extend({
   runJSPM: function() {
     if (!this.options['skip-install']){
       this.log('Executing JSPM install');
-      this.spawnCommand('jspm', ['install'], {cwd: projectTypeChoice});
+      this.spawnCommand('jspm', ['install']);
     } else{
       this.log('JSPM install deliberately skipped');
     }
