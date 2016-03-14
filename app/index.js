@@ -92,17 +92,13 @@ var Generator = module.exports = yeoman.generators.Base.extend({
 
           if (isWin) {
             var tempDestination = this.destinationRoot() + '\\github_tmp';
-            var mvCommand = 'xcopy "' + tempDestination + '\\*.*" "' + this.destinationRoot() + '" /E /Y';
+            var mvCommand = 'xcopy "' + tempDestination + '\\' + projectTypeChoice + '\\*.*" "' + this.destinationRoot() + '" /E /Y';
             var rmCommand = 'del "' + tempDestination + '" /S /Q';
           } else {
             var tempDestination = this.destinationRoot() + '/github_tmp';
             var mvCommand = 'mv -v "' + tempDestination + '/' + projectTypeChoice +'/"* "'+ this.destinationRoot()+'/"';
             var rmCommand = 'rm -rf "' + tempDestination + '"';
           }
-
-          // this.log.info('temp destination = ' + tempDestination);
-          // this.log.info('move command = ' + mvCommand);
-          // this.log.info('remove command = ' + rmCommand);
 
           // move all files and sub folders from the selected dir into the destination dir
           mv = exec(mvCommand, function(error, stdout, stderr) {
