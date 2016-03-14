@@ -1,26 +1,28 @@
 var fs = require('fs');
 var yeoman = require('yeoman-generator');
+var debug = require('debug')('yeoman:environment');
 var GitHubApi = require('github');
+var exec = require('child_process').exec;
 
 var projectTypeChoice;
 
 var Generator = module.exports = yeoman.generators.Base.extend({
-  
+
   constructor: function(){
     yeoman.generators.Base.apply(this, arguments);
     this.option('skip-install');
   },
-  
+
   prompting: function () {
     var done = this.async();
     this.prompt({
       type    : 'list',
       name    : 'project',
       choices : [
-        { name: "EcmaScript 2016", value: "skeleton-es2016"},
-        { name: "ASP.NET 5 - EcmaScript 2016", value: "skeleton-es2016-asp.net5/src/skeleton-navigation-es2016-vs"},
-        { name: "TypeScript", value: "skeleton-typescript"},
-        { name: "ASP.NET 5 - TypeScript", value: "skeleton-typescript-asp.net5/skeleton-navigation-typescript-vs"},
+        { name: 'EcmaScript 2016', value: 'skeleton-es2016'},
+        { name: 'ASP.NET 5 - EcmaScript 2016', value: 'skeleton-es2016-asp.net5/src/skeleton-navigation-es2016-vs'},
+        { name: 'TypeScript', value: 'skeleton-typescript'},
+        { name: 'ASP.NET 5 - TypeScript', value: 'skeleton-typescript-asp.net5/src/skeleton-navigation-typescript-vs'},
       ],
       message : 'Which Aurelia preset would you like to install?',
     }, function (answers) {
@@ -32,28 +34,27 @@ var Generator = module.exports = yeoman.generators.Base.extend({
   init: function () {
     var done = this.async();
 
-    var ghdownload = require('download-github-repo')
-      , execFile = require('child_process').execFile;
+    var ghdownload = require('download-github-repo');
 
     this.log(this.destinationRoot());
 
 
     var githubOptions = {
       // required
-      version: "3.0.0",
+      version: '3.0.0',
       debug: false,
-      protocol: "https",
-      host: "api.github.com",
-      pathPrefix: "",
+      protocol: 'https',
+      host: 'api.github.com',
+      pathPrefix: '',
       timeout: 30000,
       headers: {
-        "user-agent": "Aurelia-Github-Loader"
+        'user-agent': 'Aurelia-Github-Loader'
       }
     };
 
     if(this.options['proxy']) {
-      console.log(this.options['proxy']);
-      githubOptions["proxy"] = this.options['proxy'];
+      this.log.info(this.options['proxy']);
+      githubOptions['proxy'] = this.options['proxy'];
     }
 
     var github = new GitHubApi(githubOptions);
@@ -75,15 +76,47 @@ var Generator = module.exports = yeoman.generators.Base.extend({
         this.env.error('No Release-Tags available');
         return;
       }
-      console.log('Downloading latest available release: ' + result[0].name);
+      this.log.info('Downloading latest available release: ' + result[0].name);
 
       // Kick off the repo download
-      ghdownload("aurelia/skeleton-navigation#" + result[0].name, this.destinationRoot(), function(err) {
+      ghdownload('aurelia/skeleton-navigation#' + result[0].name, this.destinationRoot() + '/github_tmp', function(err) {
+
         if (err !== undefined && err !== null) {
           this.env.error(err);
         } else {
-          this.log('Download complete');
-          done();
+          this.log.ok('Download complete');
+
+          //check platform and customize the exec commands
+          var isWin = /^win/.test(process.platform);
+          this.log.info('Running ' + (isWin ? '' : 'non-') + 'windows platform (' + process.platform + ')');
+
+          if (isWin) {
+            var tempDestination = this.destinationRoot() + '\\github_tmp';
+            var mvCommand = 'xcopy "' + tempDestination + '\\' + projectTypeChoice + '\\*.*" "' + this.destinationRoot() + '" /E /Y';
+            var rmCommand = 'del "' + tempDestination + '" /S /Q';
+          } else {
+            var tempDestination = this.destinationRoot() + '/github_tmp';
+            var mvCommand = 'mv -v "' + tempDestination + '/' + projectTypeChoice +'/"* "'+ this.destinationRoot()+'/"';
+            var rmCommand = 'rm -rf "' + tempDestination + '"';
+          }
+
+          // move all files and sub folders from the selected dir into the destination dir
+          mv = exec(mvCommand, function(error, stdout, stderr) {
+            if (error !== null) {
+              this.env.error(error);
+            }
+
+            // remove the left over temporary files
+            this.log.ok('Specified skeleton folder moved: ' + projectTypeChoice);
+            rm = exec(rmCommand, function(error, stdout, stderr) {
+              if (error !== null) {
+                this.env.error(error);
+              }
+              this.log.ok('Temporary github folder removed');
+
+              done();
+            }.bind(this));
+          }.bind(this));
         }
       }.bind(this));
     }.bind(this));
@@ -91,21 +124,21 @@ var Generator = module.exports = yeoman.generators.Base.extend({
 
   executeNPMInstall: function () {
     if (!this.options['skip-install']){
-      this.log('Executing NPM install');
-      this.npmInstall(null, {cwd: projectTypeChoice});
+      this.log.info('Executing NPM install');
+      this.npmInstall(null);
     } else {
-      this.log('NPM install deliberately skipped');
+      this.log.skip('NPM install deliberately skipped');
     }
   },
 
   runJSPM: function() {
     if (!this.options['skip-install']){
-      this.log('Executing JSPM install');
-      this.spawnCommand('jspm', ['install'], {cwd: projectTypeChoice});
+      this.log.info('Executing JSPM install');
+      this.spawnCommand('jspm', ['install']);
     } else{
-      this.log('JSPM install deliberately skipped');
+      this.log.skip('JSPM install deliberately skipped');
     }
   }
 });
 
-Generator.name = "Generator Aurelia";
+Generator.name = 'Generator Aurelia';
