@@ -4,6 +4,8 @@ This is a Yeoman Generator for the [Skeleton App](https://github.com/aurelia/ske
 
 For more info please visit the official site: http://www.aurelia.io/
 
+> Please note that there is an official Aurelia CLI, which performs all the tasks this generator does and much more. Head over to [https://github.com/aurelia/cli](https://github.com/aurelia/cli) in order to find out more. 
+
 ## Prerequisite
 This generator will use [JSPM](http://jspm.io), Aurelias package manager of choice, which performs GitHub queries to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm registry config github` and following the prompts. If you choose to authorize jspm by an access token instead of giving your password (see GitHub Settings > Personal Access Tokens), `public_repo` access for the token is required.
 
