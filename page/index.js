@@ -2,7 +2,9 @@ var generators = require('yeoman-generator');
 module.exports = generators.NamedBase.extend({
 
   generateAureliaVM: function() {
-    this.fs.copyTpl(
+    var pageName = this.name.indexOf("/") > -1 ? this.name.substring(this.name.lastIndexOf("/" + 1)) : this.name;
+	
+	this.fs.copyTpl(
       this.templatePath('vm.js'),
       this.destinationPath('src/' + this.name + '.js'),
       { PageName: this.name }
@@ -10,11 +12,13 @@ module.exports = generators.NamedBase.extend({
   },
 
   generateAureliaView: function() {
+	var pageName = this.name.indexOf("/") > -1 ? this.name.substring(this.name.lastIndexOf("/" + 1)) : this.name;
+	
     this.fs.copyTpl(
       this.templatePath('view.html'),
       this.destinationPath('src/' + this.name + '.html'),
       {
-        PageName: this.name,
+        PageName: pageName,
         Hello: '${hello}'
       }
     );
